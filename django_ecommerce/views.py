@@ -5,7 +5,7 @@ from django.shortcuts import render
 def pagina_casa(request):
     context = {
         "title": "Hola a todos dudues",
-        "content":"Bienvenidos"
+        "content": "Bienvenidos"
     }
     return render(request, "home.html", context)
 
@@ -13,7 +13,7 @@ def pagina_casa(request):
 def pagina_sobre_nosotros(request):
     context = {
         "title": "Sobre nosotros",
-        "content":"Estea es una prueba para ecomerce"
+        "content": "Estea es una prueba para ecomerce"
     }
     return render(request, "home.html", context)
 
@@ -21,6 +21,9 @@ def pagina_sobre_nosotros(request):
 def pagina_contacto(request):
     context = {
         "title": "Contacto",
-        "content":"Contactanos para pdoer ayudarte"
+        "content": "Contactanos para pdoer ayudarte"
     }
-    return render(request, "home.html", context)
+    if request.method == 'POST':
+        print(request.POST)
+        print(request.POST.get("fullName"))
+    return render(request, "contact/view.html", context)
