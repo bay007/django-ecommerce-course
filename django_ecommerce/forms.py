@@ -62,6 +62,13 @@ class Registroform(forms.Form):
             raise forms.ValidationError("Ya existe este usuario")
         return username
 
+    def clean_email(self):
+        email = self.cleaned_data['email']
+        qs = User.objects.filter(email=email)
+        if qs.exists():
+            raise forms.ValidationError("Ya existe este email")
+        return email
+
     def clean(self):
         data = self.cleaned_data
         if data["password"] != data["password_confirm"]:
