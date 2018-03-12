@@ -1,6 +1,7 @@
-<h1>dddddddd</h1>
+ {% if qs %}
 <h2>Contexto por funcion {{qs}}</h2>
 
-
+{% endif %} {% for obj in qs%} {{obj.titulo}} {% endfor %} {% if object_list %}
 <h2>Contexto por Clase {{paginator}} {{page_obj}} {{is_paginated}} {{object_list}} {{producto_list}} {{view}}
 </h2>
+{% endif %} {% for obj in object_list%} {{obj.titulo}} {% endfor %}
