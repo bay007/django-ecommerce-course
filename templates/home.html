@@ -22,11 +22,16 @@
 
         {% if request.user.is_authenticated %}
         <div class="row">
+            <a href="logout/">Salir</a>
             <div class="col">
                 <h2>Premium Content</h2>
                 <h3>{{premium_content}}</h3>
             </div>
         </div>
+
+        {% else %}
+        <a href="login/">Iniciar Premium</a>
+        <a href="registro/">Registrarse</a>
         {% endif %}
 
     </div>

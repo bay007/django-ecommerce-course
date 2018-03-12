@@ -1,4 +1,4 @@
-from django.contrib.auth import login as django_login
+from django.contrib.auth import login as django_login, logout
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
 
@@ -86,4 +86,10 @@ def registro(request):
         password = registro_data['password']
         user = User.objects.create_user(username, email, password)
         user.save()
+        return redirect("/login")
     return render(request, "auth/registro.html", context)
+
+
+def salir(request):
+    logout(request)
+    return redirect("/")
