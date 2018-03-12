@@ -34,7 +34,7 @@ class Loginform(forms.Form):
     attrs = {
         "class": "form-control",
     }
-    username = forms.EmailField(widget=forms.TextInput(attrs=attrs))
+    username = forms.CharField(widget=forms.TextInput(attrs=attrs))
     password = forms.CharField(widget=forms.PasswordInput(attrs=attrs))
 
 

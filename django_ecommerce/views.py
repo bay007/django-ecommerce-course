@@ -1,6 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import ContactForm, Loginform, Registroform
+from django.contrib.auth import authenticate, login as django_login
 
 
 def pagina_casa(request):
@@ -40,7 +41,6 @@ def pagina_contacto(request):
 
 def login(request):
     login_form = Loginform(request.POST or None)
-    print(request.user)
     context = {
         "title": "Login",
         "content": "Aqui puede iniciar sesion",
@@ -48,6 +48,14 @@ def login(request):
     }
     if login_form.is_valid():
         login_data = login_form.cleaned_data
+        username = login_data["username"]
+        password = login_data["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            django_login(request, user=user)
+            # Redirect to a success page.
+            return redirect("/")
+
     return render(request, "auth/login.html", context)
 
 
