@@ -20,13 +20,16 @@ def pagina_sobre_nosotros(request):
 
 
 def pagina_contacto(request):
-    contact_form = ContactForm()
+    contact_form = ContactForm(request.POST)
     context = {
         "title": "Contacto",
         "content": "Contactanos para pdoer ayudarte",
         "form": contact_form
     }
-    if request.method == 'POST':
-        print(request.POST)
-        print(request.POST.get("fullName"))
+
+    if contact_form.is_valid():
+        # esto yas es un diccionario con la data necesaria
+        datos_formulario = contact_form.cleaned_data
+        print(datos_formulario)
+
     return render(request, "contact/view.html", context)
