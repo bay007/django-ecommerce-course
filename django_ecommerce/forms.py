@@ -28,3 +28,15 @@ class ContactForm(forms.Form):
             raise forms.ValidationError(
                 "Debe tener entre 10 y 50 caracteres ")
         return content
+
+
+class Loginform(forms.Form):
+    attrs = {
+        "class": "form-control",
+    }
+    username = forms.EmailField(widget=forms.TextInput(attrs=attrs))
+    password = forms.CharField(widget=forms.PasswordInput(attrs=attrs))
+
+
+class Registroform(forms.Form):
+    pass
