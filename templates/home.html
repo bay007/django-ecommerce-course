@@ -19,6 +19,16 @@
         <div class="row">
             <div class="col">{{content}}</div>
         </div>
+
+        {% if premium_content %}
+        <div class="row">
+            <div class="col">
+                <h2>Premium Content</h2>
+                <h3>{{premium_content}}</h3>
+            </div>
+        </div>
+        {% endif %}
+
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

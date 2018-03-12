@@ -8,6 +8,9 @@ def pagina_casa(request):
         "title": "Hola a todos dudues",
         "content": "Bienvenidos"
     }
+
+    if request.user.is_authenticated():
+        context.update({"premium_content": "PREMIUM"})
     return render(request, "home.html", context)
 
 
