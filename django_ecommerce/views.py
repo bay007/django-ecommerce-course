@@ -46,6 +46,10 @@ def login(request):
         "content": "Aqui puede iniciar sesion",
         "form": login_form
     }
+
+    if request.user.is_authenticated():
+        return redirect("/")
+
     if login_form.is_valid():
         login_data = login_form.cleaned_data
         username = login_data["username"]
