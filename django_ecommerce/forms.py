@@ -1,5 +1,9 @@
 from django import forms
 
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
+
 
 class ContactForm(forms.Form):
     attrs = {
@@ -39,4 +43,27 @@ class Loginform(forms.Form):
 
 
 class Registroform(forms.Form):
-    pass
+    attrs = {
+        "class": "form-control",
+    }
+    username = forms.CharField(
+        label="Username", widget=forms.TextInput(attrs=attrs))
+    email = forms.EmailField(
+        label="Email", widget=forms.TextInput(attrs=attrs))
+    password = forms.CharField(
+        label="Password", widget=forms.PasswordInput(attrs=attrs))
+    password_confirm = forms.CharField(
+        label="Confirma Password", widget=forms.PasswordInput(attrs=attrs))
+
+    def clean_username(self):
+        username = self.cleaned_data['username']
+        qs = User.objects.filter(username=username)
+        if qs.exists():
+            raise forms.ValidationError("Ya existe este usuario")
+        return username
+
+    def clean(self):
+        data = self.cleaned_data
+        if data["password"] != data["password_confirm"]:
+            raise forms.ValidationError("Passwords no coinciden")
+        return data

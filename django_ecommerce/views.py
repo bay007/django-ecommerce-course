@@ -1,7 +1,13 @@
+from django.contrib.auth import login as django_login
+from django.contrib.auth import authenticate
+from django.contrib.auth import get_user_model
+
+
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect, render
+
 from .forms import ContactForm, Loginform, Registroform
-from django.contrib.auth import authenticate, login as django_login
+User = get_user_model()
 
 
 def pagina_casa(request):
@@ -70,6 +76,14 @@ def registro(request):
         "title": "Registro",
         "content": "Aun no se ha registrado? Hagalo",
     }
+    if request.user.is_authenticated():
+        return redirect("/")
+
     if registro_form.is_valid():
         registro_data = registro_form.cleaned_data
+        username = registro_data['username']
+        email = registro_data['email']
+        password = registro_data['password']
+        user = User.objects.create_user(username, email, password)
+        user.save()
     return render(request, "auth/registro.html", context)
