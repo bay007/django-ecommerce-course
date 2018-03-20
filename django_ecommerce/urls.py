@@ -25,5 +25,5 @@ urlpatterns = [
     url(r'^login/$', login),
     url(r'^logout/$', salir),
     url(r'^registro/$', registro),
-    url(r'^producto', include(productos_url))
+    url(r'^producto/', include(productos_url))
 ]
