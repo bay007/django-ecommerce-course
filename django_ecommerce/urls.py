@@ -17,6 +17,9 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from .views import pagina_casa, pagina_contacto, pagina_sobre_nosotros, login, registro, salir
 from productos.urls import urlpatterns as productos_url
+from django.conf.urls.static import static
+from django.conf import settings
+
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^$', pagina_casa),
@@ -26,4 +29,4 @@ urlpatterns = [
     url(r'^logout/$', salir),
     url(r'^registro/$', registro),
     url(r'^producto/', include(productos_url))
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
