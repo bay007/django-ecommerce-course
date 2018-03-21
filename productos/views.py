@@ -1,4 +1,4 @@
-from django.views.generic import list, DetailView
+from django.views.generic import DetailView, ListView
 from django.shortcuts import render, get_object_or_404
 from django.http import Http404
 
@@ -6,7 +6,7 @@ from django.http import Http404
 from productos.models import Producto
 
 
-class ProductoView(list.ListView):
+class ProductoView(ListView):
     queryset = Producto.objects.all()
     template = "productos/producto_list.html"
 
@@ -23,6 +23,14 @@ def producto_list_view(request):
         'qs': queryset
     }
     return render(request, "productos/producto_list.html", context)
+
+
+def producto_list_view_featured(request):
+    queryset = Producto.objects.featured()
+    context = {
+        'object_list': [queryset] if not isinstance(queryset, list) else queryset
+    }
+    return render(request, "productos/producto_list_featured.html", context)
 
 
 class ProductoDetail(DetailView):

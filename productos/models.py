@@ -15,12 +15,19 @@ class ProductoManager(models.Manager):
             return qs.first()
         return None
 
+    def featured(self):
+        qs = self.get_queryset().filter(featured=True)
+        if qs.count() == 1:
+            return qs.first()
+        return None
+
 
 class Producto(models.Model):
     titulo = models.CharField(max_length=120)
     descripcion = models.TextField()
     precio = models.DecimalField(decimal_places=2, max_digits=19)
     imagen = models.ImageField(upload_to=path_custom, null=True, blank=True)
+    featured = models.BooleanField(default=False)
 
     objects = ProductoManager()
 
