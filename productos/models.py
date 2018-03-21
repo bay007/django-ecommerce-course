@@ -8,6 +8,11 @@ def path_custom(instance, filename):
     return 'producto_{0}/{1}'.format(instance.titulo.replace(" ", "_"), filename)
 
 
+class ProductoQuerySet(models.query.QuerySet):
+    def _featured(self):
+        return self.filter(featured=True)
+
+
 class ProductoManager(models.Manager):
     def obtener_por_id(self, id):
         qs = self.get_queryset().filter(id=id)
@@ -16,7 +21,8 @@ class ProductoManager(models.Manager):
         return None
 
     def featured(self):
-        qs = self.get_queryset().filter(featured=True)
+        print(self)
+        qs = ProductoQuerySet(Producto, using=self._db)._featured()
         if qs.count() == 1:
             return qs.first()
         return None
