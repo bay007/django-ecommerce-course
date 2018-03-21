@@ -12,8 +12,14 @@ class ProductoQuerySet(models.query.QuerySet):
     def _featured(self):
         return self.filter(featured=True)
 
+    def all(self):
+        return self.filter(active=True)
+
 
 class ProductoManager(models.Manager):
+    def obtener_queryset(self):
+        return ProductoQuerySet(Producto, using=self._db)
+
     def obtener_por_id(self, id):
         qs = self.get_queryset().filter(id=id)
         if qs.count() == 1:
@@ -22,7 +28,7 @@ class ProductoManager(models.Manager):
 
     def featured(self):
         print(self)
-        qs = ProductoQuerySet(Producto, using=self._db)._featured()
+        qs = self.obtener_queryset().all()
         if qs.count() == 1:
             return qs.first()
         return None
@@ -34,6 +40,7 @@ class Producto(models.Model):
     precio = models.DecimalField(decimal_places=2, max_digits=19)
     imagen = models.ImageField(upload_to=path_custom, null=True, blank=True)
     featured = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
 
     objects = ProductoManager()
 
