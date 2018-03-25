@@ -1,7 +1,11 @@
- {% if qs %}
-<h2>Contexto por funcion {{qs}}</h2>
+<ul>
+    {% for obj in object_list%}
+    <li>
+        <a href="{{request.build_relative_uri|urlencode}}{{obj.slug}}">{{obj.titulo}}</a>
+        <a href="{{request.build_relative_uri|urlencode}}{{obj.slug}}">
+            <img style="height:50px;width: 50px" src={{MEDIA_URL}}{{obj.imagen}} title={{object.titulo}}></img>
+        </a>
 
-{% endif %} {% for obj in qs%} {{obj.titulo}} {% endfor %} {% if object_list %}
-<h2>Contexto por Clase {{paginator}} {{page_obj}} {{is_paginated}} {{object_list}} {{producto_list}} {{view}}
-</h2>
-{% endif %} {% for obj in object_list%} {{obj.titulo}} {% endfor %}
+    </li>
+    <hr/> {% endfor %}
+</ul>
