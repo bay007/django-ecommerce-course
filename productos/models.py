@@ -1,6 +1,7 @@
 from django.db import models
+from django.db.models.signals import pre_save
 
-# Create your models here.
+from .utils import unique_slug_generator
 
 
 def path_custom(instance, filename):
@@ -41,8 +42,17 @@ class Producto(models.Model):
     imagen = models.ImageField(upload_to=path_custom, null=True, blank=True)
     featured = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    slug = models.SlugField(blank=True, unique=True)
 
     objects = ProductoManager()
 
     def __str__(self):
         return "{}-{}".format(self.titulo, self.precio)
+
+
+def my_callback_Producto(sender, instance, *args, **kwargs):
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+
+
+pre_save.connect(my_callback_Producto, sender=Producto)

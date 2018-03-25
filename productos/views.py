@@ -8,7 +8,7 @@ from productos.models import Producto
 
 class ProductoView(ListView):
     queryset = Producto.objects.all()
-    template = "productos/producto_list.html"
+    template_name = "productos/producto_list.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductoView, self).get_context_data(*args, **kwargs)
@@ -34,7 +34,7 @@ def producto_list_view_featured(request):
 
 
 class ProductoDetail(DetailView):
-    template = "productos/producto_detail.html"
+    template_name = "productos/producto_detail.html"
 
     def get_context_data(self, *args, **kwargs):
         context = super(ProductoDetail, self).get_context_data(*args, **kwargs)
@@ -42,11 +42,19 @@ class ProductoDetail(DetailView):
         return context
 
     def get_object(self, *args, **kwargs):
-        pk = kwargs.get('pk')
+        pk = self.kwargs.get('pk')
         queryset = Producto.objects.obtener_por_id(id=pk)
         if queryset is None:
             raise Http404("No existe este objeto :(")
         return queryset
+
+
+class ProductoDetailSlug(DetailView):
+    template_name = "productos/producto_detail.html"
+
+    def get_object(self):
+        slug = self.kwargs.get('slug')
+        return get_object_or_404(Producto, slug=slug)
 
 
 def producto_detail_view(request, *args, **kwars):
