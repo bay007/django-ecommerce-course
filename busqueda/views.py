@@ -1,6 +1,9 @@
+from django.db.models import Q
 from django.shortcuts import render
-from productos.models import Producto
 from django.views.generic import ListView
+
+from productos.models import Producto
+
 # Create your views here.
 
 
@@ -11,9 +14,8 @@ class SearchProductView(ListView):
         search_key = self.request.GET.get('q', None)
         print(search_key)
         if search_key is not None:
-            qs_title = Producto.objects.filter(titulo__icontains=search_key)
-            qs_description = Producto.objects.filter(
+            lookup = Q(titulo__icontains=search_key) | Q(
                 descripcion__icontains=search_key)
-            return qs_title.union(qs_description)
+            return Producto.objects.filter(lookup).distinct()
 
         return Producto.objects.featured()
