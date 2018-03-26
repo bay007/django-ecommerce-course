@@ -12,7 +12,7 @@ User = get_user_model()
 
 def pagina_casa(request):
     context = {
-        "title": "Hola a todos dudues",
+        "title": "Home",
         "content": "Bienvenidos"
     }
 
@@ -33,7 +33,7 @@ def pagina_contacto(request):
     contact_form = ContactForm(request.POST or None)
     context = {
         "title": "Contacto",
-        "content": "Contactanos para pdoer ayudarte",
+        "content": "Contactanos para poder ayudarte",
         "form": contact_form
     }
 
