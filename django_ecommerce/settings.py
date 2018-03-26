@@ -63,7 +63,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'django.template.context_processors.media', #Your  media context processor is enabled, Now every RequestContext will contain a variable MEDIA_URL
+                # Your  media context processor is enabled, Now every RequestContext will contain a variable MEDIA_URL
+                'django.template.context_processors.media',
             ],
         },
     },
@@ -105,7 +106,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-MX'
 
 TIME_ZONE = 'UTC'
 
