@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
         <div class="col-sm-5">
-            <a href="javascript:history.go(-1)" class="btn">Productos</a>
+            <a href="{% url 'productos:lista' %}" class="btn">Productos</a>
             <div class="card-deck">
                 <div class="card  mb-3">
                     <img class="card-img-top" src={{MEDIA_URL}}{{object.imagen}} class="img-fluid" alt="{{object.titulo}}">

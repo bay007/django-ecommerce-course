@@ -28,5 +28,5 @@ urlpatterns = [
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', salir, name='salir'),
     url(r'^registro/$', registro, name='registro'),
-    url(r'^productos/', include(productos_url))
+    url(r'^productos/', include(productos_url, namespace='productos'),)
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
