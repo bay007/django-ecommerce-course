@@ -1,6 +1,23 @@
-<br/> Mercancia: {{object.titulo}}
-<br/>Descripcion: {{object.descripcion}}
-<br/> $Precio: {{object.precio}}
-<br/> {% if object.imagen %}
-<img src={{MEDIA_URL}}{{object.imagen}} title={{object.titulo}}></img>
-{% endif %}
+{% extends "base.html" %}{% load static %} {%block contenido%}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-5">
+            <a href="javascript:history.go(-1)" class="btn">Productos</a>
+            <div class="card-deck">
+                <div class="card  mb-3">
+                    <img class="card-img-top" src={{MEDIA_URL}}{{object.imagen}} class="img-fluid" alt="{{object.titulo}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{object.titulo}}</h5>
+                        <p class="card-text">{{object.descripcion}}</p>
+                        <a href="#" class="btn btn-primary">Comprar por ${{object.precio}}</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Creado: {{object.created |timesince }} - Ultima Edicion: {{object.lastupdate |timesince }}</small>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{%endblock%}

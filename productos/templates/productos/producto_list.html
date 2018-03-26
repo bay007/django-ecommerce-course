@@ -1,11 +1,25 @@
-<ul>
-    {% for obj in object_list%}
-    <li>
-        <a href="{{request.build_relative_uri|urlencode}}{{obj.slug}}">{{obj.titulo}}</a>
-        <a href="{{request.build_relative_uri|urlencode}}{{obj.slug}}">
-            <img style="height:50px;width: 50px" src={{MEDIA_URL}}{{obj.imagen}} title={{object.titulo}}></img>
-        </a>
+{% extends "base.html" %}{% load static %} {%block contenido%}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="card-deck">
+                {% for obj in object_list%}
 
-    </li>
-    <hr/> {% endfor %}
-</ul>
+                <div class="card  mb-3">
+                    <img class="card-img-top" src={{MEDIA_URL}}{{obj.imagen}} class="img-fluid" alt="{{obj.titulo}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{obj.titulo}}</h5>
+                        <p class="card-text">{{obj.descripcion}}</p>
+                        <a href={{request.build_relative_uri|urlencode}}{{obj.slug}} class="btn btn-primary">Ver</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Creado: {{obj.created |timesince }} - Ultima Edicion: {{obj.lastupdate |timesince }}</small>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{%endblock%}
