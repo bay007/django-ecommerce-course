@@ -1,0 +1,33 @@
+{% extends "base.html" %}{% load static %} {%block contenido%}
+<div class="container">
+    <div class="row">
+        <h1>Busqueda para
+            <i>{{request.GET.q}}</i>:</h1>
+        <div class="col-sm-12">
+
+            {%if object_list %}
+            <div class="card-deck">
+                {% for obj in object_list%}
+                <div class="card  mb-3">
+                    <img class="card-img-top" src={{MEDIA_URL}}{{obj.imagen}} class="img-fluid" alt="{{obj.titulo}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{obj.titulo}}</h5>
+                        <p class="card-text">{{obj.descripcion|truncatewords:10}}</p>
+                        <a href={%url 'productos:detalle' slug=obj.slug %} class="btn btn-primary">Ver</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Creado: {{obj.created |timesince }} - Ultima Edicion: {{obj.lastupdate |timesince }}</small>
+                    </div>
+                </div>
+
+                {% endfor %}
+            </div>
+            {%else%}
+            <h2>No se encontraron productos que coincidieran con
+                <i>{{request.GET.q}}</i>
+            </h2>
+            {%endif%}
+        </div>
+    </div>
+</div>
+{%endblock%}

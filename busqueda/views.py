@@ -5,7 +5,7 @@ from django.views.generic import ListView
 
 
 class SearchProductView(ListView):
-    template_name = 'productos/producto_list.html'
+    template_name = 'search/search_view.html'
 
     def get_queryset(self, *args, **kargs):
         search_key = self.request.GET.get('q', None)
