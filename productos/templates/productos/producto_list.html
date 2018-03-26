@@ -9,7 +9,7 @@
                     <img class="card-img-top" src={{MEDIA_URL}}{{obj.imagen}} class="img-fluid" alt="{{obj.titulo}}">
                     <div class="card-body">
                         <h5 class="card-title">{{obj.titulo}}</h5>
-                        <p class="card-text">{{obj.descripcion}}</p>
+                        <p class="card-text">{{obj.descripcion|truncatewords:10}}</p>
                         <a href={%url 'productos:detalle' slug=obj.slug %} class="btn btn-primary">Ver</a>
                     </div>
                     <div class="card-footer">

@@ -7,8 +7,8 @@
                 <div class="card  mb-3">
                     <img class="card-img-top" src={{MEDIA_URL}}{{object.imagen}} class="img-fluid" alt="{{object.titulo}}">
                     <div class="card-body">
-                        <h5 class="card-title">{{object.titulo}}</h5>
-                        <p class="card-text">{{object.descripcion}}</p>
+                        <h5 class="card-title">{{object.titulo|title}}</h5>
+                        <p class="card-text">{{object.descripcion|linebreaks}}</p>
                         <a href="#" class="btn btn-primary">Comprar por ${{object.precio}}</a>
                     </div>
                     <div class="card-footer">
