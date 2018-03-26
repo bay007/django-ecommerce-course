@@ -30,8 +30,8 @@ class ProductoManager(models.Manager):
     def featured(self):
         print(self)
         qs = self.obtener_queryset().all()
-        if qs.count() == 1:
-            return qs.first()
+        if qs.count() > 0:
+            return qs
         return None
 
 
@@ -43,7 +43,7 @@ class Producto(models.Model):
     featured = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     slug = models.SlugField(blank=True, unique=True)
-    created = models.DateTimeField(auto_now_add=True,null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
     lastupdate = models.DateTimeField(auto_now=True, null=True)
 
     objects = ProductoManager()
