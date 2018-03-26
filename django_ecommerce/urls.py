@@ -17,6 +17,7 @@ from django.conf.urls import url, include
 from django.contrib import admin
 from .views import pagina_casa, pagina_contacto, pagina_sobre_nosotros, login, registro, salir
 from productos.urls import urlpatterns as productos_url
+from busqueda.urls import urlpatterns as busqueda_url
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -28,5 +29,6 @@ urlpatterns = [
     url(r'^login/$', login, name='login'),
     url(r'^logout/$', salir, name='salir'),
     url(r'^registro/$', registro, name='registro'),
-    url(r'^productos/', include(productos_url, namespace='productos'),)
+    url(r'^productos/', include(productos_url, namespace='productos')),
+    url(r'^search/', include(busqueda_url, namespace='busqueda'))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
