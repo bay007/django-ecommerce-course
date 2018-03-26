@@ -22,11 +22,11 @@ from django.conf import settings
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'^$', pagina_casa),
-    url(r'^contacto/$', pagina_contacto),
-    url(r'^aboutus/$', pagina_sobre_nosotros),
-    url(r'^login/$', login),
-    url(r'^logout/$', salir),
-    url(r'^registro/$', registro),
-    url(r'^producto/', include(productos_url))
+    url(r'^$', pagina_casa, name='home'),
+    url(r'^contacto/$', pagina_contacto, name='contacto'),
+    url(r'^aboutus/$', pagina_sobre_nosotros, name='sobre_nosotros'),
+    url(r'^login/$', login, name='login'),
+    url(r'^logout/$', salir, name='salir'),
+    url(r'^registro/$', registro, name='registro'),
+    url(r'^productos/', include(productos_url))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
