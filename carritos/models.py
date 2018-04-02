@@ -16,14 +16,15 @@ class CarritoManager(models.Manager):
                     id=id_carrito)
                 request.session["cart_id"] = new_carrito.id
             else:
-                carritos_ = Carrito.objects.filter(id=id_carrito)
-                if carritos_.count() == 1:
-                    carrito_obj = carritos_.first()
-                    carrito_obj.usuario = request.user
-                    carrito_obj.save()
+                new_carrito = Carrito.objects.filter(id=id_carrito)
+                if new_carrito.count() == 1:
+                    new_carrito = new_carrito.first()
+                    new_carrito.usuario = request.user
+                    new_carrito.save()
         else:
             new_carrito, created = Carrito.objects.get_or_create(id=id_carrito)
             request.session["cart_id"] = new_carrito.id
+        return new_carrito
 
 
 class Carrito(models.Model):
