@@ -1,4 +1,29 @@
 {% extends 'base.html'%} {% block contenido%}
-<h1>
 
-    {% endblock %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 col-md-6">
+            <div class="card-deck">
+                {% if productos %} {% for obj in productos%}
+                <div class="card  mb-3">
+                    <img class="card-img-top" src={{MEDIA_URL}}{{obj.imagen}} class="img-fluid" alt="{{obj.titulo}}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{obj.titulo}}</h5>
+                        <p class="card-text">{{obj.descripcion|truncatewords:10}}</p>
+                        <a href={%url 'carrito:remove' id=obj.id %} class="btn btn-warning">Remover del carrito</a>
+                    </div>
+                    <div class="card-footer">
+                        <small class="text-muted">Creado: {{obj.created |timesince }} - Ultima Edicion: {{obj.lastupdate |timesince }}</small>
+                    </div>
+                </div>
+
+                {% endfor %} {% else %}
+                <p>El carrito no tiene productos</p>
+                <hr/>
+                <a href={% url 'productos:lista' %}> Explorar algunos</a>
+                {%endif%}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
