@@ -9,7 +9,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{object.titulo|title}}</h5>
                         <p class="card-text">{{object.descripcion|linebreaks}}</p>
-                        <a href="#" class="btn btn-primary">Comprar por ${{object.precio}}</a>
+                        <a href={% url 'carrito:add' id=object.id%} class="btn btn-primary">Comprar por ${{object.precio}}</a>
                     </div>
                     <div class="card-footer">
                         <small class="text-muted">Creado: {{object.created |timesince }} - Ultima Edicion: {{object.lastupdate |timesince }}</small>
