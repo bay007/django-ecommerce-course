@@ -9,6 +9,7 @@ def carrito_home(request):
     context = {
         'carrito': carrito_obj
     }
+    request.session['carito_productos'] = carrito_obj.productos.count()
     return render(request, 'carritos.html', context)
 
 
@@ -32,4 +33,5 @@ def carrito_remove(request, *args, **kwargs):
     if productos.count() > 0:
         carrito_obj.productos.remove(productos.first())
         carrito_obj.save()
+
     return redirect('carrito:home')
