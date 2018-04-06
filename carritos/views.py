@@ -7,7 +7,7 @@ from productos.models import Producto
 def carrito_home(request):
     carrito_obj = Carrito.objects.get_or_new(request)
     context = {
-        'productos': carrito_obj.productos.all()
+        'carrito': carrito_obj
     }
     return render(request, 'carritos.html', context)
 
