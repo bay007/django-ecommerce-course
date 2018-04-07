@@ -1,7 +1,7 @@
 from django.db import models
 from django.db.models.signals import pre_save
 
-from .utils import unique_slug_generator
+from django_ecommerce.utils import unique_slug_generator
 
 
 def path_custom(instance, filename):

@@ -15,7 +15,7 @@ class SearchProductView(ListView):
         print(search_key)
         if search_key is not None:
             lookup = Q(titulo__icontains=search_key) | Q(
-                descripcion__icontains=search_key)
+                descripcion__icontains=search_key) | Q(tag__titulo__icontains=search_key)
             return Producto.objects.filter(lookup).distinct()
 
         return Producto.objects.featured()
