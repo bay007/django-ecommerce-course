@@ -1,5 +1,8 @@
 from django.db import models
+from django.db.models.signals import pre_save
+
 from carritos.models import Carrito
+from django_ecommerce.utils import unique_generator_order_id
 # Create your models here.
 
 
@@ -22,3 +25,10 @@ class Orden(models.Model):
 
     def __str__(self):
         return self.order_id
+
+
+def pre_save_Orden(sender, instance, *args, **kwargs):
+    instance.order_id = unique_generator_order_id(instance)
+
+
+pre_save.connect(pre_save_Orden, sender=Orden)

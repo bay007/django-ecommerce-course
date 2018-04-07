@@ -8,6 +8,15 @@ http://joincfe.com/blog/random-string-generator-in-python/
 '''
 
 
+def unique_generator_order_id(instance):
+    default_length = 50
+    length = len(instance.order_id)
+    if instance.order_id is None or instance.order_id == '' or length < default_length:
+        return instance.order_id+get_random_string(default_length-length)
+
+    return instance.order_id
+
+
 def unique_slug_generator(instance, new_slug=None):
     """
     This is for a Django project and it assumes your instance 
