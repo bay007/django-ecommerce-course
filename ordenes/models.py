@@ -1,5 +1,5 @@
 from django.db import models
-from django.db.models.signals import pre_save
+from django.db.models.signals import pre_save, post_save
 
 from carritos.models import Carrito
 from django_ecommerce.utils import unique_generator_order_id
@@ -19,16 +19,23 @@ class Orden(models.Model):
     carrito = models.ForeignKey(Carrito)
     estado = models.CharField(
         max_length=20, choices=ESTADOS_ORDENES, default=CREADA)
-    total_envio = models.DecimalField(
+    costo_envio = models.DecimalField(
         default=99, decimal_places=2, max_digits=50)
-    total = models.DecimalField(default=0, decimal_places=2, max_digits=50)
+    sub_total = models.DecimalField(default=0, decimal_places=2, max_digits=50)
 
     def __str__(self):
         return self.order_id
 
 
-def pre_save_Orden(sender, instance, *args, **kwargs):
-    instance.order_id = unique_generator_order_id(instance)
+def after_save_carrito(sender, instance, *args, **kwargs):
+    carrito_obj = instance
+    id_carrito = carrito_obj.id
+    total_carrito = carrito_obj.total
+    orden = Orden.objects.filter(carrito=id_carrito)
+    if orden.count() == 1:
+        orden = orden.first()
+        orden.sub_total = float(total_carrito)
+        orden.save()
 
 
-pre_save.connect(pre_save_Orden, sender=Orden)
+post_save.connect(after_save_carrito, sender=Carrito)
