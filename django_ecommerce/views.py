@@ -1,7 +1,7 @@
 from django.contrib.auth import login as django_login, logout
 from django.contrib.auth import authenticate
 from django.contrib.auth import get_user_model
-
+from django.utils.http import is_safe_url
 
 from django.http import HttpResponse
 from django.shortcuts import redirect, render
@@ -52,7 +52,9 @@ def login(request):
         "content": "Aqui puede iniciar sesion",
         "form": login_form
     }
-
+    next_ = request.GET.get('next')
+    next_post = request.POST.get('next')
+    redirect_path = next_ or next_post or None
     if request.user.is_authenticated():
         return redirect("/")
 
@@ -63,10 +65,13 @@ def login(request):
         user = authenticate(request, username=username, password=password)
         if user is not None:
             django_login(request, user=user)
-            # Redirect to a success page.
-            return redirect("/")
+            if is_safe_url(redirect_path, request.get_host()):
+                return redirect(redirect_path)
+            else:
+                # Redirect to a success page.
+                return redirect("/")
 
-    return render(request, "auth/login.html", context)
+    return render(request, "login.html", context)
 
 
 def registro(request):
@@ -87,7 +92,7 @@ def registro(request):
         user = User.objects.create_user(username, email, password)
         user.save()
         return redirect("/login")
-    return render(request, "auth/registro.html", context)
+    return render(request, "registro.html", context)
 
 
 def salir(request):
