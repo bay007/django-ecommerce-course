@@ -27,6 +27,13 @@ class Orden(models.Model):
         return self.order_id
 
 
+def pre_save_Orden(sender, instance, *args, **kwargs):
+    instance.order_id = unique_generator_order_id(instance)
+
+
+pre_save.connect(pre_save_Orden, sender=Orden)
+
+
 def after_save_carrito(sender, instance, *args, **kwargs):
     carrito_obj = instance
     id_carrito = carrito_obj.id
