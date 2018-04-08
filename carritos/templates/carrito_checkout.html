@@ -1,0 +1,6 @@
+{% extends 'base.html'%} {% block contenido %}
+<h1>Checkout</h1>
+<p>Subtotal + IVA: ${{ orden.sub_total }}</p>
+<p>Envio: ${{ orden.costo_envio }}</p>
+<p>Total a pagar: ${{ orden.sub_total|add:orden.costo_envio }}</p>
+{% endblock %}

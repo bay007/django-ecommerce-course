@@ -6,6 +6,15 @@ from django_ecommerce.utils import unique_generator_order_id
 # Create your models here.
 
 
+class OrdenManager(models.Manager):
+    def get_or_new(self, request):
+        if 'cart_id' in request.session:
+            cart_id = request.session['cart_id']
+            carrito = Carrito.objects.get(id=cart_id)
+            return Orden.objects.get_or_create(carrito=carrito)
+        return None, False
+
+
 class Orden(models.Model):
     CREADA = 'creada'
     PAGADA = 'pagada'
@@ -22,6 +31,8 @@ class Orden(models.Model):
     costo_envio = models.DecimalField(
         default=99, decimal_places=2, max_digits=50)
     sub_total = models.DecimalField(default=0, decimal_places=2, max_digits=50)
+
+    objects = OrdenManager()
 
     def __str__(self):
         return self.order_id

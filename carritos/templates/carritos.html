@@ -19,27 +19,32 @@
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
                         <td>
-                            <img src={{MEDIA_URL}}{{obj.imagen}} class="img-fluid" alt="{{obj.titulo}}">
+                            <img src={{MEDIA_URL}}{{obj.imagen}} class="img-fluid" alt="{{obj.titulo}}" style="width:150px">
                         </td>
-                        <td>$ {{obj.precio}}</td>
+                        <td>${{obj.precio}}</td>
                         <th>1</th>
                         <td>
-                            <a href={%url 'carrito:remove' id=obj.id %} class="btn btn-warning">Remover del carrito</a>
                             <a href={%url 'productos:detalle' slug=obj.slug %} class="btn btn-primary">Ver detalle </a>
+                            <a href={%url 'carrito:remove' id=obj.id %} class="btn btn-warning">Remover del carrito</a>
                         </td>
                     </tr>
                     {% endfor %}
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
-                        <td colspan="1">Subtotal: </td>
-                        <td>$ {{carrito.sub_total}}</td>
-                        <td colspan="1"> </td>
+                        <td colspan="1">Subtotal
+                            <small>(antes de impuestos)</small>: </td>
+                        <td colspan="2">$ {{carrito.sub_total}}</td>
                     </tr>
                     <tr>
                         <th scope="row">{{forloop.counter}}</th>
-                        <td colspan="1">Subtotal + IVA </td>
-                        <td>$ {{carrito.total}}</td>
-                        <td colspan="1"> </td>
+                        <td colspan="1">Subtotal + IVA
+                            <small> (16%)</small>
+                        </td>
+                        <td colspan="2">$ {{carrito.total}}</td>
+                        <td colspan="1">
+                            <a href={%url 'carrito:checkout' %} class="btn btn-success">Checkout</a>
+                        </td>
+
                     </tr>
                 </tbody>
             </table>

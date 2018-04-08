@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from .models import Carrito
 from productos.models import Producto
+from ordenes.models import Orden
 # Create your views here.
 
 
@@ -35,3 +36,14 @@ def carrito_remove(request, *args, **kwargs):
         carrito_obj.save()
 
     return redirect('carrito:home')
+
+
+def carrito_checkout(request):
+    if 'cart_id' in request.session:
+        orden_object, created = Orden.objects.get_or_new(request)
+        if orden_object is None or orden_object.sub_total == 0:
+            return redirect('carrito:home')
+        context = {
+            "orden": orden_object
+        }
+    return render(request, 'carrito_checkout.html', context=context)
