@@ -44,6 +44,7 @@ def carrito_checkout(request):
         if orden_object is None or orden_object.sub_total == 0:
             return redirect('carrito:home')
         context = {
-            "orden": orden_object
+            "orden": orden_object,
+            "big_total": orden_object.sub_total+orden_object.costo_envio
         }
     return render(request, 'carrito_checkout.html', context=context)
