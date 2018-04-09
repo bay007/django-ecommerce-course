@@ -1,7 +1,12 @@
-from django.shortcuts import render, redirect
-from .models import Carrito
-from productos.models import Producto
+from django.shortcuts import redirect, render
+
+from accounts.forms import Loginform
+from billing.models import Billing
 from ordenes.models import Orden
+from productos.models import Producto
+
+from .models import Carrito
+
 # Create your views here.
 
 
@@ -39,12 +44,17 @@ def carrito_remove(request, *args, **kwargs):
 
 
 def carrito_checkout(request):
-    if 'cart_id' in request.session:
+    context = {'base_extends': 'base2.html', "login_form": Loginform()}
+    if 'cart_id' in request.session and request.user.is_authenticated():
         orden_object, created = Orden.objects.get_or_new(request)
-        if orden_object is None or orden_object.sub_total == 0:
+        print(orden_object.sub_total)
+        if orden_object is None:
             return redirect('carrito:home')
-        context = {
+        bulling_profile = Billing.objects.get_or_create(user=request.user)
+        print(bulling_profile)
+        context.update({
             "orden": orden_object,
-            "big_total": orden_object.sub_total+orden_object.costo_envio
-        }
+            "big_total": orden_object.sub_total+orden_object.costo_envio,
+            "billing_profile": bulling_profile
+        })
     return render(request, 'carrito_checkout.html', context=context)

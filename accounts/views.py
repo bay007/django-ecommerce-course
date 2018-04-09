@@ -14,11 +14,12 @@ def login(request):
     context = {
         "title": "Login",
         "content": "Aqui puede iniciar sesion",
-        "form": login_form
+        "form": login_form,
+        'base_extend': "base.html"
     }
-    next_ = request.GET.get('next')
-    next_post = request.POST.get('next')
-    redirect_path = next_ or next_post or None
+    next_ = request.GET.get('next_url', None)
+    next_post = request.POST.get('next_url', None)
+    redirect_path = next_ or next_post
     if request.user.is_authenticated():
         return redirect("/")
 
@@ -27,12 +28,13 @@ def login(request):
         username = login_data["username"]
         password = login_data["password"]
         user = authenticate(request, username=username, password=password)
-        if user is not None:
+
+        if user:
             django_login(request, user=user)
-            if is_safe_url(redirect_path, request.get_host()):
+
+            if is_safe_url(redirect_path, allowed_hosts=request.get_host()):
                 return redirect(redirect_path)
             else:
-                # Redirect to a success page.
                 return redirect("/")
 
     return render(request, "login.html", context)

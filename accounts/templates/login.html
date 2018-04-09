@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% load static%} {% block titulo%}{{title}}{% endblock %} {% block custom_css %}
+{% extends base_extend %} {% load static%} {% block titulo%}{{title}}{% endblock %} {% block custom_css %}
 <style>
     h1 {
         font-family: Arial Narrow Bold;
@@ -11,8 +11,11 @@
     <div class="row">
         <div class="col">
             <p>{{content}}</p>
-            <form method="POST">
-                {% csrf_token %} {{form}}
+            <form method="POST" action={% url 'auth:login' %}>
+                {% csrf_token %} {{form}} 
+                {% if next_url %}
+                <input type='hidden' name='next_url' value={{next_url}}> 
+                {% endif %}
                 <button type="submit" class="btn btn-primary">Enviar</button>
                 <a class="btn btn-default" href={% url 'auth:registro' %}>Registrarte</a>
             </form>
