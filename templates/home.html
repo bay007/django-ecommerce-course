@@ -7,7 +7,7 @@
 
     {% if request.user.is_authenticated %}
     <div class="row">
-        <a href={% url 'salir' %}>Salir</a>
+        <a href={% url 'auth:salir' %}>Salir</a>
         <div class="col">
             <h2>Premium Content</h2>
             <h3>{{premium_content}}</h3>
@@ -15,8 +15,8 @@
     </div>
 
     {% else %}
-    <a href={% url 'login' %}>Iniciar Premium</a>
-    <a href={% url 'registro' %}>Registrarse</a>
+    <a href={% url 'auth:login' %}>Iniciar Premium</a>
+    <a href={% url 'auth:registro' %}>Registrarse</a>
     {% endif %}
 
 </div>

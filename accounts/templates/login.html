@@ -14,7 +14,7 @@
             <form method="POST">
                 {% csrf_token %} {{form}}
                 <button type="submit" class="btn btn-primary">Enviar</button>
-                <a class="btn btn-default" href={% url 'registro' %}>Registrarte</a>
+                <a class="btn btn-default" href={% url 'auth:registro' %}>Registrarte</a>
             </form>
         </div>
     </div>
