@@ -1,0 +1,12 @@
+{% extends "base.html"%}
+{% load static%}
+
+{%block title_head%}
+{{title}}
+{%endblock%}
+
+{%block body%}
+<div class="flex flex-col items-center">
+    <h1>Bienvenido {{user.email}}</h1>
+</div>
+{%endblock%}
