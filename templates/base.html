@@ -1,17 +1,31 @@
- {% load static %}
-<!doctype html>
+{% load static%}
+
+
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"> {% include "base/css.html"%} {% block custom_css %} {%endblock%}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>
+        {%block title_head%}
+        {%endblock%}
+    </title>
+    <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
+    {%block head %}
+    {% endblock%}
 
-    <title>{% block titulo%}{%endblock%}</title>
 </head>
 
-<body>
-    {% include 'base/nav.html' %} {% block contenido %} {% endblock %} {% include "base/js.html"%}
+<body class="bg-green-600 flex flex-col items-center">
+    <div class="bg-gray-100 md:w-4/6 h-100 flex flex-col">
+        <h1 class="text-center">{{hello}}</h1>
+        {%block body %}
+        {% endblock%}
+    </div>
+
 </body>
 
 </html>
