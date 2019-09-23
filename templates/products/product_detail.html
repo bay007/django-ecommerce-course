@@ -1,0 +1,21 @@
+{%extends 'base.html'%}
+{% load static%}
+{%block head %}
+<style>
+
+</style>
+{%endblock%}
+{%block title_head%}
+Producto
+{%endblock%}
+
+{%block body%}
+<div class="flex flex-col p-5">
+    <p class="text-bold text-base">{{object.title}}</p>
+    <p class="text-sm">${{object.price}}</p>
+    <p class="text-xs my-5">{{object.description}}</p>
+    <button class="self-center mt-10 bg-blue-600 text-white text-bold w-8/12 h-10 rounded">
+        <a href="{% url 'product_list'%}">Productos</a>
+    </button>
+</div>
+{%endblock%}
