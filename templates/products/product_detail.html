@@ -10,12 +10,17 @@ Producto
 {%endblock%}
 
 {%block body%}
-<div class="flex flex-col p-5">
-    <p class="text-bold text-base">{{object.title}}</p>
-    <p class="text-sm">${{object.price}}</p>
-    <p class="text-xs my-5">{{object.description}}</p>
-    <button class="self-center mt-10 bg-blue-600 text-white text-bold w-8/12 h-10 rounded">
-        <a href="{% url 'product_list'%}">Productos</a>
-    </button>
+<div class="flex flex-row p-5 bg-white">
+    <div class="w-1/2 p-5">
+        <img src="{{ MEDIA_URL }}{{object.image}}" alt="{{object.title}}" class="border border-gray-200 shadow-xl">
+    </div>
+    <div class="w-1/2 p-5">
+        <p class="text-bold text-base text-3xl">{{object.title}}</p>
+        <p class="text-sm text-gray-800">${{object.price}}</p>
+        <p class="text-xs my-5">{{object.description}}</p>
+        <button class="self-center mt-10 bg-blue-600 text-white text-bold w-8/12 h-10 rounded">
+            <a href="{% url 'product_list'%}">Productos</a>
+        </button>
+    </div>
 </div>
 {%endblock%}
