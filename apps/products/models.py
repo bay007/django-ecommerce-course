@@ -1,3 +1,4 @@
+from django.urls import reverse_lazy, reverse
 import hashlib
 import random
 
@@ -28,6 +29,9 @@ class Product(models.Model):
 
     def __str__(self):
         return f"{self.title}-${self.price}"
+
+    def get_absolute_url(self):
+        return f"{reverse_lazy('product_detail', kwargs={'slug': self.slug})}"
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
