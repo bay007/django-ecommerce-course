@@ -20,5 +20,5 @@ from .views import ProductDetailView, ProductListView
 
 urlpatterns = [
     path("product/", ProductListView.as_view(), name="product_list"),
-    path("product/<int:custom_pk>/", ProductDetailView.as_view(), name="product_detail"),
+    path("product/<slug:slug>/", ProductDetailView.as_view(), name="product_detail"),
 ]

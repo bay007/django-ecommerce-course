@@ -16,6 +16,6 @@ class ProductDetailView(DetailView):
     template_name = "products/product_detail.html"
 
     def get(self, request, *args, **kwargs):
-        product = get_object_or_404(self.get_queryset(), pk=kwargs['custom_pk'])
+        product = get_object_or_404(self.get_queryset(), slug=kwargs['slug'])
         context = {'object': product}
         return render(request, self.template_name, context)

@@ -22,7 +22,7 @@ Productos
         <p class="text-sm">${{product.price}}</p>
         <p class="text-xs truncate">{{product.description}}</p>
         <button class="self-center mt-10 bg-blue-600 text-white text-bold w-8/12 h-10 rounded">
-            <a href="{% url 'product_detail' custom_pk=product.id %}">Comprar</a>
+            <a href="{% url 'product_detail' slug=product.slug %}">Comprar</a>
         </button>
     </li>
     {%endfor %}
