@@ -25,10 +25,10 @@ from .views import AboutView, ContactView, HomeView, WelcomeView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', HomeView.as_view(title="Home")),
-    path('contact/', ContactView.as_view(title="Contacto")),
+    path('', HomeView.as_view(title="Home"), name="home"),
+    path('contact/', ContactView.as_view(title="Contacto"), name="contact"),
     path('welcome/', WelcomeView.as_view(title="Welcome"), name="welcome"),
-    path('about/', AboutView.as_view(title="About")),
+    path('about/', AboutView.as_view(title="About"), name='about'),
     path('', include(user_secure_urls)),
     path('', include(products_urls))
 ]
