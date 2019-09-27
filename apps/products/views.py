@@ -10,6 +10,19 @@ class ProductListView(ListView):
     model = Product
     template_name = "products/products_list.html"
 
+    def get_queryset(self):
+        q = self.request.GET.get("q", None)
+        qs = super().get_queryset()
+        if q is None:
+            return qs
+        return qs.filter(slug__icontains=q.lower()).union(qs.filter(description__icontains=q.lower()))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        q = self.request.GET.get("q", None)
+        context["value"] = q
+        return context
+
 
 class ProductDetailView(DetailView):
     model = Product
